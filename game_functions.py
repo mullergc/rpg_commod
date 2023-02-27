@@ -8,8 +8,8 @@ def dynamics_pandemics(cases):
 
 def hosp_dynamics(cases,er_res,beds_res,icu_res):
     data_input = {'comp': ['er','hosp','icu'],
-                  'cases': [er_res/4,beds_res/2,icu_res/10]}
+                  'beds': [er_res,beds_res,icu_res]}
     df_input = pd.DataFrame(data_input)
     df = dynamics_pandemics(cases)
-    df_res = (df['cases'] - df['death']) - df_input['cases']
+    df_res = (df['cases'] - df['death']) - df_input['beds']
     return df_res
