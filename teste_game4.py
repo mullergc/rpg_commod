@@ -34,14 +34,12 @@ def choices_gov(res):
     if (userInput + userInput2 + userInput3) > 100:
          print("Please enter a valid option.")
     else:
-       primcare = userInput
-       hospital = userInput2
-       media = userInput3
-       # primcare = (int(res) * userInput)/2
-       # hospital = (int(res) * userInput2)/1
-       # icu = (int(res) * userInput3)/4
+       primcare = userInput/100 * int(res)
+       hospital = userInput2/100 * int(res)
+       media = userInput3/100 * int(res)
+       cash = res - (primcare+hospital+media)
        choices_hosp(hospital,100)
-
+       return cash
 
 def choices_hosp(hospital,cases):
     print('HOSPITAL MANAGER TURN')
@@ -52,15 +50,16 @@ def choices_hosp(hospital,cases):
     userInput5 = int(b)
     userInput6 = int(c)
 
-    if (userInput4 + userInput5 + userInput6) > 100 :
+    if (userInput4 + userInput5 + userInput6) > 10 :
         print("Please enter a valid option.")
     else :
-        ER = (int(hospital) * userInput4)/2
-        Infirmary = (int(hospital) * userInput5)/1
-        ICU = (int(hospital) * userInput6)/4
+        ER = (int(hospital) * (userInput4/100))/2
+        Infirmary = (int(hospital) * (userInput5/100))/1
+        ICU = (int(hospital) * (userInput6/100))/4
         pandemics = game_functions.dynamics_pandemics(cases)
-        result = game_functions.hosp_dynamics(pandemics,ER,Infirmary,ICU)
-        return result
+       #return ER, Infirmary, ICU, pandemics
+        game_functions.hosp_dynamics(pandemics,ER,Infirmary,ICU)
+
 
 
 if __name__ == "__main__":
