@@ -12,7 +12,7 @@ class start:
         if val > 1000:
           print("Invalid input, please choose less than 1000 people")
         elif val == 0:
-           print("Invalid input, please choose less than 1000 people")
+           print("Invalid input, please choose greater than 0 people")
         else:
            print(f'Welcome to country of {name_input},with a pop of {val}')
 
@@ -28,16 +28,16 @@ class start:
 
 class Government:
     def __init__(self):
-        self.resources = 200
+       # self.resources = 200
         self.media_resources = 0
         self.hospital_resources = 0
         self.primarycare_resources = 0
 
-    def distribute_resources(self, media_pct, hospital_pct, primarycare_pct):
-        self.media_resources = int(self.resources * (media_pct / 100))
-        self.hospital_resources = int(self.resources * (hospital_pct / 100))
-        self.primarycare_resources = int(self.resources * (primarycare_pct / 100))
-        self.resources -= self.media_resources + self.hospital_resources + self.primarycare_resources
+    def distribute_resources(self,resources, media_pct, hospital_pct, primarycare_pct):
+        self.media_resources = int(resources * (media_pct / 100))
+        self.hospital_resources = int(resources * (hospital_pct / 100))
+        self.primarycare_resources = int(resources * (primarycare_pct / 100))
+        #self.resources -= self.media_resources + self.hospital_resources + self.primarycare_resources
 
 
 class Media:
@@ -70,7 +70,7 @@ class Hospital:
         max_beds = int(self.resources / bed_price)
         max_icu = int(self.resources / icu_price)
         max_er = int(self.resources / er_price)
-        print(f"You can buy a maximum of {max_beds} beds, {max_icu} icu units and {max_er} er units.")
+        print(f"You can buy with {self.resources} a maximum of {max_beds} beds, {max_icu} icu units and {max_er} er units.")
         beds = int(input("How many beds do you want to buy? "))
         icu = int(input("How many icu units do you want to buy? "))
         er = int(input("How many er units do you want to buy? "))
@@ -93,7 +93,11 @@ class pandemics_dinamics:
         self.icu_deaths = 0
         self.er_deaths = 0
         self.enf_deaths = 0
-    def dynamics_pandemics(self,cases):
+        self.total_death = 0
+
+    def dynamics_pandemics(self,pop,primcare_resources):
+        percent = int(random.randrange(0,10))
+        cases = int((pop*(percent/100)) - primcare_resources/5)
         icu_cases = int(cases * 0.2)
         enf_cases = int(cases * 0.2)
         er_cases = int(cases * 0.6)
@@ -115,6 +119,7 @@ def play_game():
     gov = Government()
     media = Media()
     hospital = Hospital()
+    pand = pandemics_dinamics()
 
     #start info
     name = input("Name your country: ")
@@ -123,13 +128,15 @@ def play_game():
     st.choose_pop(name,pop)
     st.choose_level(level)
     resources = st.res
+    pop2 = int(pop)
 
     # distribute resources
     print(f"Governor, you have {resources} to distribute for Media, Hospital and Primary Care")
     media_pct = int(input("Enter percentage of resources for media: "))
     hospital_pct = int(input("Enter percentage of resources for hospital: "))
-    primarycare_pct = 100 - media_pct - hospital_pct
-    gov.distribute_resources(media_pct, hospital_pct, primarycare_pct)
+    primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
+    box = resources - (media_pct + hospital_pct + primarycare_pct)
+    gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)
 
     # choose talk
     media.choose_talk()
@@ -137,12 +144,13 @@ def play_game():
     # buy resources
     hospital.resources = gov.hospital_resources
     hospital.buy_resources()
+    primcare_resources = gov.primarycare_resources
 
     # Cases dinamics
-    pandemic = pandemics_dinamics()
-    er_excess = pandemic.er_cases - hospital.er
-    icu_excess = pandemic.icu_cases - hospital.er
-    enf_excess = pandemic.enf_cases - hospital.beds
+    pand.dynamics_pandemics(pop2,primcare_resources)
+    er_excess = pand.er_cases - hospital.er
+    icu_excess = pand.icu_cases - hospital.icu
+    enf_excess = pand.enf_cases - hospital.beds
 
     if er_excess < 0:
         er_excess = 0
