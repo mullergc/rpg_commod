@@ -1,4 +1,5 @@
-import game_functions
+from deprecated import game_functions
+
 
 def introScene():
     difficulty = ["easy", "normal", "hard"]
@@ -58,7 +59,7 @@ def choices_hosp(hospital,cases):
         ICU = (int(hospital) * (userInput6/100))/4
         pandemics = game_functions.dynamics_pandemics(cases)
        #return ER, Infirmary, ICU, pandemics
-        game_functions.hosp_dynamics(pandemics,ER,Infirmary,ICU)
+        game_functions.hosp_dynamics(pandemics, ER, Infirmary, ICU)
 
 
 

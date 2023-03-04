@@ -8,7 +8,7 @@ HEIGHT = 500
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('teste')
 
-sprite_sheet_image = pygame.image.load('images/bedhosp.png').convert_alpha()
+sprite_sheet_image = pygame.image.load('../images/bedhosp.png').convert_alpha()
 
 BG = (50,50,50)
 
