@@ -1,118 +1,39 @@
-import players as pl
-import pandemics as pnd
 import first_round as frst
+import rounds as rd
 
-### TRANSICAO ENTRE ROUNDS
-class get_res:
-    def __init__(self):
-        self.resources = 0
-        self.mediatalk = "p"
-        self.rem_pop = 0
-        self.pct_pop = 0
+def play_game():
+    game = "ongoing"
+    num_rounds = 12
+    round_num = 1
 
+    while game != "over" and round_num <= num_rounds:
+        print(f"Round {round_num} of {num_rounds}")
+        round_res = frst.round_1()
+        pop = round_res['res_pop']
+        init_res = round_res['init_res']
+        box = round_res['box']
+        media_talk = round_res['media_talk']
+        pct_pop = round_res['pct_pop']
 
-
-def round_1():
-    st = frst.start()
-    gov = pl.Government()
-    media = pl.Media()
-    hospital = pl.Hospital()
-    pand = pnd.pandemics_dinamics()
-
-    #start info
-    name = input("Name your country: ")
-    pop = input("Enter your total population (max=1000): ")
-    level = input("What level you would like to play? [EASY/NORMAL/HARD]")
-    st.choose_pop(name,pop)
-    st.choose_level(level)
-    resources = st.res
-    pop2 = int(pop)
-
-    # distribute resources
-    print(f"Governor, you have {resources} to distribute for Media, Hospital and Primary Care")
-    media_pct = int(input("Enter percentage of resources for media: "))
-    hospital_pct = int(input("Enter percentage of resources for hospital: "))
-    primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
-    gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)
-    hospital.resources = gov.hospital_resources
-    primcare_resources = gov.primarycare_resources
-    media.resources = gov.media_resources
-    box = resources - (media.resources + hospital.resources + primcare_resources)
-    print(f'Governor, you have {box} to next round')
-
-    # choose talk
-    media.choose_talk()
-
-    # buy resources
-    hospital.resources = gov.hospital_resources
-    hospital.buy_resources()
-
-    # Cases dinamics
-    pand.dynamics_pandemics(pop2,primcare_resources)
-    tot_cases = pand.total_cases
-    deaths = pand.total_death
-    er_excess = pand.er_cases - hospital.er
-    icu_excess = pand.icu_cases - hospital.icu
-    enf_excess = pand.enf_cases - hospital.beds
+        r2 = rd.rounds(pop, pct_pop, init_res, box, media_talk)
+        pop2 = r2['res_pop']
+        init_res2 = r2['init_res']
+        box2 = r2['box']
+        media_talk2 = r2['media_talk']
+        pct_pop2 = r2['pct_pop']
 
 
-    if er_excess < 0:
-        er_excess = 0
-    else:
-        pass
+        if pop2 <= 0:
+            print("Game over! Your population has been wiped out.")
+            game = "over"
+        elif round_num == num_rounds:
+            print("Congratulations! You have successfully completed the game.")
+            game = "over"
+        else:
+            round_num += 1
+            print(f"Your population is {pop2}. Proceeding to next round...\n")
 
-    if icu_excess < 0:
-        icu_excess = 0
-    else:
-        pass
+        # Call rounds function here passing the results of round_1
+        rd.rounds(pop2, pct_pop2, init_res2, box2, media_talk2)
 
-    if enf_excess < 0:
-        enf_excess = 0
-    else:
-        pass
-
-    deaths_excess = er_excess + icu_excess + enf_excess
-    total_deaths = deaths + deaths_excess
-    res_pop = pop2 - total_deaths
-    pct_pop = res_pop/pop2
-
-    # game results
-    if media.positive_talk:
-        print("The media talked positively about the government.")
-    else:
-        print("The media talked negatively about the government.")
-    print(f"The hospital has {hospital.beds} beds, {hospital.icu} icu units and {hospital.er} units")
-    print(f"Number of cases needing hospital care of {tot_cases} and total deaths was {total_deaths}")
-    print(f"The number of death excess was {deaths_excess}")
-    print(f" {icu_excess} died waiting for ICU,{er_excess} waiting for ER and {enf_excess} for Infirmary ")
-    print(f'You actual population is {res_pop}')
-    print("Good Job, you survived to first round")
-
-# Agora incluidos o output para o próximo round
-    return {
-            "init_res":resources,
-            "res_pop": res_pop,
-            "pct_pop": pct_pop,
-            "box": box,
-            "media_talk": media.positive_talk
-            }
-
-############### AQUI ACABAM AS FUNCOES DO ROUND 1 #########################
-## Agora as funções que valem para os próximos rounds #####################
-
-class get_resources_r2:
-    def __init__(self):
-        self.resources = 0
-        self.mediatalk = "p"
-        #self.rem_pop = 0
-        #self.pct_pop = 0
-    def start_round(self,init_resources,pct_pop,media_talk,box):
-        res = int(init_resources * pct_pop) + box
-        media_talk = media_talk
-
-        self.resources += res
-        self.mediatalk += media_talk
-
-def round_2(res_pop,pct_pop,box,media_talk):
-    r1 = get_resources_r2()
-    r1.start_round(init_resources,pct_pop,media_talk,box)
+    return
