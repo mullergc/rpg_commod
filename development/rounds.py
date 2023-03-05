@@ -84,8 +84,8 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk):
 
     deaths_excess = er_excess + icu_excess + enf_excess
     total_deaths = deaths + deaths_excess
-    res_pop = pop2 - total_deaths
-    pct_pop = res_pop / pop2
+    res_pop2 = pop2 - total_deaths
+    pct_pop = res_pop2 / pop2
 
     # game results
     if media.positive_talk:
@@ -97,19 +97,11 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk):
     print(f"Number of cases needing hospital care of {tot_cases} and total deaths was {total_deaths}")
     print(f"The number of death excess was {deaths_excess}")
     print(f" {icu_excess} died waiting for ICU,{er_excess} waiting for ER and {enf_excess} for Infirmary ")
-
-    if pct_pop == 0:
-       print('GAME OVER')
-       return {
-           "game": "over"
-       }
-    else:
-        print("Good Job, you survived to one more round")
+    print("Good Job, you survived to one more round")
     # Agora incluidos o output para o próximo round
-        return {
-            "game": "going_on",
+    return {
             "init_res": resources,
-            "res_pop": res_pop,
+            "res_pop": res_pop2,
             "pct_pop": pct_pop,
             "box": box,
             "media_talk": media.positive_talk,
