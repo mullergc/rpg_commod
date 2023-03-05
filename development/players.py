@@ -5,6 +5,18 @@ class Government:
         self.hospital_resources = 0
         self.primarycare_resources = 0
         self.rem_resources = 0
+        self.social_isol = 0
+        self.lockdown = "N"
+    def gov_decisions(self):
+        lockdown = input("Impose Lockdown? [Y/N] ")
+        if lockdown.lower() == 'y':
+           self.lockdown = True
+        elif lockdown.lower() == 'n':
+             self.lockdown = False
+        else:
+             print("Invalid input, please choose Y or N")
+             self.gov_decisions()
+
 
     def distribute_resources(self,resources, media_pct, hospital_pct, primarycare_pct):
         self.media_resources = int(resources * (media_pct / 100))

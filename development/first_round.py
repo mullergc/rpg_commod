@@ -46,15 +46,17 @@ def round_1():
 
     # distribute resources
     print(f"Governor, you have {resources} to distribute for Media, Hospital and Primary Care")
-    media_pct = int(input("Enter percentage of resources for media: "))
-    hospital_pct = int(input("Enter percentage of resources for hospital: "))
+    media_pct = int(input("Enter percentage of resources for Media: "))
+    hospital_pct = int(input("Enter percentage of resources for Hospital: "))
     primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
+    social_isol = input("Define your social distancing level [0-100]: ")
+    gov.gov_decisions()
     gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)
     hospital.resources = gov.hospital_resources
     primcare_resources = gov.primarycare_resources
     media.resources = gov.media_resources
     box = resources - (media.resources + hospital.resources + primcare_resources)
-    print(f'Governor, you have {box} to next round')
+    print(f'Governor, you have {box}$ to next round')
 
     # choose talk
     media.choose_talk()
@@ -110,5 +112,7 @@ def round_1():
             "res_pop": res_pop,
             "pct_pop": pct_pop,
             "box": box,
-            "media_talk": media.positive_talk
+            "media_talk": media.positive_talk,
+            "social_isol": social_isol,
+            'lockdown': gov.lockdown
             }
