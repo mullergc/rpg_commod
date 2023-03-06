@@ -13,6 +13,12 @@ class pandemics_dinamics:
     def dynamics_pandemics(self,pop,primcare_resources):
         percent = int(random.randrange(1,10))
         cases = int((pop*(percent/100)) - primcare_resources/5)
+
+        if cases < 0:
+            cases = 0
+        else:
+            pass
+
         icu_cases = int(cases * 0.2)
         enf_cases = int(cases * 0.2)
         er_cases = int(cases * 0.6)
