@@ -27,7 +27,7 @@ class get_resources_r2:
         self.mult_factor_media += mult_factor
 
 
-def rounds(res_pop,pct_pop,init_resources,box,media_talk):
+def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, name_gov):
     r1 = get_resources_r2()
     gov = pl.Government()
     media = pl.Media()
@@ -37,9 +37,9 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk):
     r1.start_round(init_resources,pct_pop,media_talk,box)
     resources = r1.resources
     pop2 = int(res_pop)
-    print(f"Governor, you have {r1.resources} to spend in this round")
+    print(f"Governor {name_gov}, you have {r1.resources} to spend in this round")
 
-    print(f"Governor, you have {resources} to distribute for Media, Hospital and Primary Care")
+    print(f"Governor {name_gov}, you have {resources} to distribute for Media, Hospital and Primary Care")
     media_pct = int(input("Enter percentage of resources for Media: "))
     hospital_pct = int(input("Enter percentage of resources for Hospital: "))
     primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
@@ -50,14 +50,14 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk):
     primcare_resources = gov.primarycare_resources
     media.resources = gov.media_resources
     box = resources - (media.resources + hospital.resources + primcare_resources)
-    print(f'Governor, you have {box}$ to next round')
+    print(f'Governor {name_gov}, you have {box}$ to next round')
 
     # choose talk
-    media.choose_talk()
+    media.choose_talk(name_media)
 
     # buy resources
     hospital.resources = gov.hospital_resources
-    hospital.buy_resources()
+    hospital.buy_resources(name_hosp)
 
     # Cases dinamics
     pand.dynamics_pandemics(pop2, primcare_resources)

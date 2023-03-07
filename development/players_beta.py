@@ -28,8 +28,8 @@ class Media:
         self.resources = 0
         self.positive_talk = True
 
-    def choose_talk(self):
-        print(f'You have {self.resources} to pay your workers and to manage')
+    def choose_talk(self,player_media):
+        print(f'{player_media}, you have {self.resources} to pay your workers and to manage')
         talk = input("Do you want to talk positively or negatively about the government? (P/N) ")
         if talk.lower() == 'p':
             self.positive_talk = True
@@ -47,21 +47,25 @@ class Hospital:
         self.icu = 0
         self.er = 0
 
-    def buy_resources(self):
+    def buy_resources(self,player_hosp):
         bed_price = 2
         icu_price = 4
         er_price = 2
         max_beds = int(self.resources / bed_price)
         max_icu = int(self.resources / icu_price)
         max_er = int(self.resources / er_price)
-        print(f"You can buy with {self.resources} a maximum of {max_beds} beds, {max_icu} icu units and {max_er} er units.")
-        beds = int(input("How many beds do you want to buy? "))
-        icu = int(input("How many icu units do you want to buy? "))
-        er = int(input("How many er units do you want to buy? "))
+        print(f"{player_hosp}, you can buy with {self.resources}$ a maximum of {max_beds} beds, {max_icu} icu units and {max_er} er units.")
+        beds = int(input("How many beds do you want to buy? (each=2$)"))
+        balance = self.resources - (beds * bed_price)
+        print(f"You still have {balance}$")
+        icu = int(input("How many icu units do you want to buy? (each=4$)"))
+        balance = balance - (icu * icu_price)
+        print(f"You still have {balance}$")
+        er = int(input("How many er units do you want to buy? (each=2$)"))
         total_cost = beds * bed_price + icu * icu_price + er * er_price
         if total_cost > self.resources:
             print("Not enough resources to buy all the items.")
-            self.buy_resources()
+            self.buy_resources(player_hosp)
         else:
             self.beds += beds
             self.icu += icu

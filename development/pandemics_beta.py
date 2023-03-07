@@ -1,4 +1,5 @@
 import random
+import math
 class pandemics_dinamics:
     def __init__(self):
         self.cases= 0
@@ -19,12 +20,12 @@ class pandemics_dinamics:
         else:
             pass
 
-        icu_cases = int(cases * 0.2)
-        enf_cases = int(cases * 0.2)
-        er_cases = int(cases * 0.6)
-        icu_deaths = int(cases * 0.2 * 0.8)
-        er_deaths = int(cases * 0.6 * 0.8)
-        enf_deaths = int(cases * 0.2 * 0.6)
+        icu_cases = math.floor(int(cases * 0.2))
+        enf_cases = math.floor(int(cases * 0.2))
+        er_cases = math.floor(int(cases * 0.6))
+        icu_deaths = math.floor(int(icu_cases * 0.8))
+        er_deaths = math.floor(int(er_cases * 0.2))
+        enf_deaths = math.floor(int(enf_cases * 0.6))
 
         self.icu_cases += icu_cases
         self.enf_cases += enf_cases

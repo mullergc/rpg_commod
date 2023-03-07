@@ -36,6 +36,10 @@ def round_1():
     pand = pnd.pandemics_dinamics()
 
     #start info
+    player_gov = input("Name of the player government: ")
+    player_media = input("Name of the player media: ")
+    player_hosp = input("Name of the player hospital: ")
+
     name = input("Name your country: ")
     pop = input("Enter your total population (max=1000): ")
     level = input("What level you would like to play? [EASY/NORMAL/HARD]")
@@ -45,25 +49,25 @@ def round_1():
     pop2 = int(pop)
 
     # distribute resources
-    print(f"Governor, you have {resources} to distribute for Media, Hospital and Primary Care")
-    media_pct = int(input("Enter percentage of resources for Media: "))
-    hospital_pct = int(input("Enter percentage of resources for Hospital: "))
-    primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
-    social_isol = input("Define your social distancing level [0-100]: ")
+    print(f"Governor {player_gov}, you have {resources} to distribute for Media, Hospital and Primary Care")
+    media_pct = int(input(f"{player_gov}, enter percentage of resources for Media: "))
+    hospital_pct = int(input(f"{player_gov}, enter percentage of resources for Hospital: "))
+    primarycare_pct = int(input(f"{player_gov}, enter percentage of resources for Primary Care: "))
+    social_isol = input(f"{player_gov}, define your social distancing level [0-100]: ")
     gov.gov_decisions()
     gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)
     hospital.resources = gov.hospital_resources
     primcare_resources = gov.primarycare_resources
     media.resources = gov.media_resources
     box = resources - (media.resources + hospital.resources + primcare_resources)
-    print(f'Governor, you have {box}$ to next round')
+    print(f'Governor {player_gov}, you have {box}$ to next round')
 
     # choose talk
-    media.choose_talk()
+    media.choose_talk(player_media)
 
     # buy resources
     hospital.resources = gov.hospital_resources
-    hospital.buy_resources()
+    hospital.buy_resources(player_hosp)
 
     # Cases dinamics
     pand.dynamics_pandemics(pop2,primcare_resources)
@@ -114,5 +118,8 @@ def round_1():
             "box": box,
             "media_talk": media.positive_talk,
             "social_isol": social_isol,
-            'lockdown': gov.lockdown
+            'lockdown': gov.lockdown,
+            'name_media': player_media,
+            'name_hosp': player_hosp,
+            'name_gov': player_gov
             }
