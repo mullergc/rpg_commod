@@ -46,7 +46,7 @@ class Hospital:
         self.beds = 0
         self.icu = 0
         self.er = 0
-
+#
     def buy_resources(self):
         bed_price = 2
         icu_price = 4

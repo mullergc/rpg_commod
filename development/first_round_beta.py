@@ -7,6 +7,10 @@ class start:
         self.pop = 0
         self.res = 0
         self.difficulty = "easy"
+
+    # Determinando que o valor da população precisa estar entre 0 e 1000
+    # name_input = nome do país
+    # val = número de pessoas
     def choose_pop(self,name_input,pop_input):
         val = int(pop_input)
         if val > 1000:
@@ -16,6 +20,10 @@ class start:
         else:
            print(f'Welcome to country of {name_input},with a pop of {val}')
 
+    # Definindo o nível de dificuldade - quantidade de recursos ofertados no início do round
+    # level.lower = nível de dificuldade do jogo
+    # self.res = quantidade de $
+    #---Se o jogador inserir valores inválidos, apresenta mensagem e retorna
     def choose_level(self,level):
         if level.lower() == 'easy':
             self.res = 200
@@ -27,7 +35,7 @@ class start:
             print("Invalid input, please choose [EASY/NORMAL/HARD]")
             self.choose_level()
 
-
+# Início do jogo | Definindo quando é pl (player) e pnd (pandemic dynamics)
 def round_1():
     st = start()
     gov = pl.Government()
@@ -35,30 +43,45 @@ def round_1():
     hospital = pl.Hospital()
     pand = pnd.pandemics_dinamics()
 
-    #start info
+    # Entrada do nome dos 3 jogadores
+    # player_gov = nome do governante
+    # player_media = nome do representante da mídia
+    # player_hosp = nome do administrador do hospital
     player_gov = input("Name of the player government: ")
     player_media = input("Name of the player media: ")
     player_hosp = input("Name of the player hospital: ")
 
+    # Entrada do nome do país, número de pessoas e nível de dificuldade
+    # name = nome do país
+    # pop = número de pessoas
+    # level = nível de dificuldade
     name = input("Name your country: ")
     pop = input("Enter your total population (max=1000): ")
     level = input("What level you would like to play? [EASY/NORMAL/HARD]")
+    # >>>>>>>O que isso faz mesmo?<<<<<<<<
     st.choose_pop(name,pop)
     st.choose_level(level)
     resources = st.res
     pop2 = int(pop)
 
-    # distribute resources
+    # Distribuição de recursos pelo governante
+    # media_pct = porcentagem de recursos para a mídia
+    # hospital_pct = porcentagem de recursos para o hospital
+    # primarycare_pct = porcentagem de recursos para a UBS
+    # Definição do nível de isolamento social
+    # social_isol = nível de isolamento social (0-100)
     print(f"Governor {player_gov}, you have {resources} to distribute for Media, Hospital and Primary Care")
-    media_pct = int(input(f"{player_gov}, enter percentage of resources for Media: "))
-    hospital_pct = int(input(f"{player_gov}, enter percentage of resources for Hospital: "))
-    primarycare_pct = int(input(f"{player_gov}, enter percentage of resources for Primary Care: "))
-    social_isol = input(f"{player_gov}, define your social distancing level [0-100]: ")
+    media_pct = int(input("Enter percentage of resources for Media: "))
+    hospital_pct = int(input("Enter percentage of resources for Hospital: "))
+    primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
+    social_isol = input("Define your social distancing level [0-100]: ")
+    # Chamando a função da dinâmica de decisões do governante
     gov.gov_decisions()
     gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)
     hospital.resources = gov.hospital_resources
     primcare_resources = gov.primarycare_resources
     media.resources = gov.media_resources
+
     box = resources - (media.resources + hospital.resources + primcare_resources)
     print(f'Governor {player_gov}, you have {box}$ to next round')
 
