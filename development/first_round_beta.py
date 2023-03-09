@@ -12,21 +12,14 @@ class start:
     # name_input = nome do país
     # val = número de pessoas
     #MUDANDO ALGUMA COISA
-    def choose_pop(self):
-        pop_input = input("Enter your total population (max=1000): ")
-        if pop_input.isnumeric()==False:
-           print("Invalid Input, please choose a number")
-           self.choose_pop()
+    def choose_pop(self,name_input,pop_input):
+        val = int(pop_input)
+        if val > 1000:
+          print("Invalid input, please choose less than 1000 people")
+        elif val == 0:
+           print("Invalid input, please choose greater than 0 people")
         else:
-           if int(pop_input) > 1000:
-               print("Invalid Input, please choose a number less than 1000")
-               self.choose_pop()
-           elif int(pop_input) <= 0:
-               print("Invalid Input, please choose a number positive and greater than 0")
-               self.choose_pop()
-           else:
-               return int(pop_input)
-
+           print(f'Welcome to country of {name_input},with a pop of {val}')
 
     # Definindo o nível de dificuldade - quantidade de recursos ofertados no início do round
     # level.lower = nível de dificuldade do jogo
@@ -64,15 +57,25 @@ def round_1():
     # pop = número de pessoas
     # level = nível de dificuldade
     name = input("Name your country: ")
-    # Função para rodar a escolha da população, contando que a pessoa pode errar
-    pop = st.choose_pop()
-    pop = int(pop)
-    print(f'Welcome to the country named as {name} with a population of {pop}')
-    level = input("What level you would like to play? [EASY/NORMAL/HARD]")
-    # >>>>>>>O que isso faz mesmo
+    while True:
+        pop = input("Enter your total population (max=1000): ")
+        if pop.isdigit():
+            break
+        else:
+            print("Invalid value, please choose an integer.")
+            continue
+    while True:
+        level = input("What level you would like to play? [EASY/NORMAL/HARD]")
+        if (level == 'easy') or (level == 'normal') or (level == 'hard'):
+            break
+        else:
+            print("Please, choose a level.")
+            continue
+    # >>>>>>>O que isso faz mesmo?<<<<<<<<
+    st.choose_pop(name,pop)
     st.choose_level(level)
     resources = st.res
-
+    pop2 = int(pop)
 
     # Distribuição de recursos pelo governante
     # media_pct = porcentagem de recursos para a mídia
@@ -103,7 +106,7 @@ def round_1():
     hospital.buy_resources(player_hosp)
 
     # Cases dinamics
-    pand.dynamics_pandemics(pop,primcare_resources)
+    pand.dynamics_pandemics(pop2,primcare_resources)
     tot_cases = pand.total_cases
     deaths = pand.total_death
     er_excess = pand.er_cases - hospital.er
@@ -128,8 +131,8 @@ def round_1():
 
     deaths_excess = er_excess + icu_excess + enf_excess
     total_deaths = deaths + deaths_excess
-    res_pop = pop - total_deaths
-    pct_pop = res_pop/pop
+    res_pop = pop2 - total_deaths
+    pct_pop = res_pop/pop2
 
     # game results
     if media.positive_talk:

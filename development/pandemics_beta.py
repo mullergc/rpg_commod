@@ -11,15 +11,24 @@ class pandemics_dinamics:
         self.enf_deaths = 0
         self.total_death = 0
 
+    # Definindo o número de casos
+    # O número de casos é gerado de forma aleatória (random), entretanto é feito a partir
+    # do número de pessoas inserido pelo usuário e do investimento na atenção primária
+    # + primcare_resources | - cases
     def dynamics_pandemics(self,pop,primcare_resources):
         percent = int(random.randrange(1,10))
         cases = int((pop*(percent/100)) - primcare_resources/5)
 
+        # O número de casos nunca pode ser negativo
         if cases < 0:
             cases = 0
         else:
             pass
 
+        # Definindo a relação no número de casos com o número de mortes
+        # math.floor -> arredondar os números para baixo
+        # Casos: 20% para a UTI; 20% para a enfermaria; 60% para a emergência
+        # Mortes: 80% na UTI; 20% na emergência; 60% na enfermaria (ambulatório)
         icu_cases = math.floor(int(cases * 0.2))
         enf_cases = math.floor(int(cases * 0.2))
         er_cases = math.floor(int(cases * 0.6))
