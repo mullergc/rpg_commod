@@ -11,6 +11,7 @@ class start:
     # Determinando que o valor da população precisa estar entre 0 e 1000
     # name_input = nome do país
     # val = número de pessoas
+    #MUDANDO ALGUMA COISA
     def choose_pop(self):
         pop_input = input("Enter your total population (max=1000): ")
         if pop_input.isnumeric()==False:
