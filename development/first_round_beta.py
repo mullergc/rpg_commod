@@ -65,12 +65,14 @@ def round_1():
             print("Invalid value, please choose an integer.")
             continue
     while True:
-        level = input("What level you would like to play? [EASY/NORMAL/HARD]")
-        if (level == 'easy') or (level == 'normal') or (level == 'hard'):
+        level = input("What level you would like to play? [EASY/NORMAL/HARD] ")
+        if (level.lower() == 'easy') or (level.lower() == 'normal') or (level.lower() == 'hard'):
             break
         else:
             print("Please, choose a level.")
             continue
+
+            # Aqui dá um loop infinito no nivel
     # >>>>>>>O que isso faz mesmo?<<<<<<<<
     st.choose_pop(name,pop)
     st.choose_level(level)
