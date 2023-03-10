@@ -58,18 +58,25 @@ def round_1():
     # level = nível de dificuldade
     name = input("Name your country: ")
     while True:
-        pop = input("Enter your total population (max=1000): ")
+        pop = input("Enter your total population (min = 100, max=1000): ")
         if pop.isdigit():
-            break
+            if int(pop) < 100:
+                print("Invalid value, please choose value greater than 100")
+                continue
+            elif int(pop) > 1000:
+                print("Invalid value, please choose value lesser than 1000")
+                continue
+            else:
+                break
         else:
             print("Invalid value, please choose an integer.")
             continue
     while True:
-        level = input("What level you would like to play? [EASY/NORMAL/HARD] ")
+        level = input("What level you would like to play? [EASY/NORMAL/HARD]:")
         if (level.lower() == 'easy') or (level.lower() == 'normal') or (level.lower() == 'hard'):
             break
         else:
-            print("Please, choose a level.")
+            print("Please, choose a valid level. [EASY/NORMAL/HARD]:")
             continue
 
             # Aqui dá um loop infinito no nivel

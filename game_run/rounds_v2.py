@@ -94,8 +94,8 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, 
         print("The media talked negatively about the government.")
 
     print(f"The hospital has {hospital.beds} beds, {hospital.icu} icu units and {hospital.er} units")
-    print(f"Number of cases needing hospital care of {tot_cases} and total deaths was {total_deaths}")
-    print(f"The number of death excess was {deaths_excess}")
+    print(f"Number of cases needing hospital care of {tot_cases} and in-hospital deaths was {deaths}")
+    print(f"The number of death excess was {deaths_excess}, and total number of deaths was {total_deaths}")
     print(f" {icu_excess} died waiting for ICU,{er_excess} waiting for ER and {enf_excess} for Infirmary ")
     print("Good Job, you survived to one more round")
     # Agora incluidos o output para o próximo round
