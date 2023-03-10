@@ -15,6 +15,6 @@ This tutorial includes basic programming concepts such as separating scenes into
 
 ## Example
 
-![alt text](preview-image.jpg)
+![alt text](deprecated/preview-image.jpg)
 
 
