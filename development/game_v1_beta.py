@@ -16,8 +16,10 @@ def play_game():
     name_media = round_res['name_media']
     name_gov = round_res['name_gov']
     name_hosp = round_res['name_hosp']
+    lockdown = round_res['lockdown']
+    trust = round_res['trust']
     print("Round 2 of 12")
-    res = rd.rounds(pop, pct_pop, init_res, box, media_talk, name_media, name_hosp, name_gov)
+    res = rd.rounds(pop, pct_pop, init_res, box, media_talk, name_media, name_hosp, name_gov,lockdown,trust)
     pop2 = res['res_pop']
     init_res2 = res['init_res']
     box2 = res['box']

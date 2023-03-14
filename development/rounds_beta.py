@@ -1,5 +1,6 @@
 import players_beta as pl
 import pandemics_beta as pnd
+import trust_functions as tf
 
 ### TRANSICAO ENTRE ROUNDS
 class get_res:
@@ -27,19 +28,26 @@ class get_resources_r2:
         self.mult_factor_media += mult_factor
 
 
-def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, name_gov):
+def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, name_gov,lockdown,trustrant):
     r1 = get_resources_r2()
     gov = pl.Government()
     media = pl.Media()
     hospital = pl.Hospital()
     pand = pnd.pandemics_dinamics()
+    trust = tf.trust_function()
 
-    r1.start_round(init_resources,pct_pop,media_talk,box)
+
+    # trust mechanics
+
+
+    r1.start_round(init_resources,pct_pop,media_talk,box) # incluir o resultado do lockdown e a trust anterior
+    trust_output = trust.trust_people(trustrant,media_talk,lockdown)
     resources = r1.resources
     pop2 = int(res_pop)
     print(f"Governor {name_gov}, you have {r1.resources} to spend in this round")
 
     print(f"Governor {name_gov}, you have {resources} to distribute for Media, Hospital and Primary Care")
+    print(f"Your public trust level is {trust_output}")
     media_pct = int(input("Enter percentage of resources for Media: "))
     hospital_pct = int(input("Enter percentage of resources for Hospital: "))
     primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
@@ -58,6 +66,7 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, 
     # buy resources
     hospital.resources = gov.hospital_resources
     hospital.buy_resources(name_hosp)
+
 
     # Cases dinamics
     pand.dynamics_pandemics(pop2, primcare_resources)
@@ -106,5 +115,6 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, 
             "box": box,
             "media_talk": media.positive_talk,
             "social_isol":social_isol,
-            'lockdown': gov.lockdown
+            "lockdown": gov.lockdown
+            #"trust":
                 }

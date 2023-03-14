@@ -10,9 +10,9 @@ class Government:
     def gov_decisions(self):
         lockdown = input("Impose Lockdown? [Y/N] ")
         if lockdown.lower() == 'y':
-           self.lockdown = True
+           self.lockdown = 'y'
         elif lockdown.lower() == 'n':
-             self.lockdown = False
+             self.lockdown = 'n'
         else:
              print("Invalid input, please choose Y or N")
              self.gov_decisions()
@@ -56,12 +56,6 @@ class Hospital:
         max_er = int(self.resources / er_price)
         print(f"{player_hosp}, you can buy with {self.resources}$ a maximum of {max_beds} beds, {max_icu} icu units and {max_er} er units.")
         beds = int(input("How many beds do you want to buy? (each=2$)"))
-            # Deixando sublinhado porque não estou conseguindo executar para saber se é isso :'(
-            #if beds.isdigit():
-                #pass
-            #else:
-                #print("Invalid input, please choose a integer number")
-                #self.buy_resources()
         balance = self.resources - (beds * bed_price)
         print(f"You still have {balance}$")
         icu = int(input("How many icu units do you want to buy? (each=4$)"))

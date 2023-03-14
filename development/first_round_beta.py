@@ -159,5 +159,7 @@ def round_1():
             'lockdown': gov.lockdown,
             'name_media': player_media,
             'name_hosp': player_hosp,
-            'name_gov': player_gov
+            'name_gov': player_gov,
+            'trust': 100
             }
+
