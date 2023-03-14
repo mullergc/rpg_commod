@@ -40,12 +40,12 @@ This repository contains these folders:
 ### Public Trust/Isolation/Lockdown: (TBI)
   * Public Trust/Compliance: starts at 100%. It is a combination of Media speech (positive increases by 5% in the next round, and negative decreases 10% each round), and also by implantation of Lockdown, that reduces by 20% next round.
     * It is a multiplier for Social Isolation, i.e, lesser public trust/compliance, less adherence to social isolation
-  * Social Isolation Level: [0-100%] is a multiplier to number of cases needing hospital aid, i.e each 10% social isolation, decreases 1% number of cases .
+  * Social Isolation Level: [0-100%] is a multiplier to number of cases needing hospital aid, i.e each 10% social isolation, decreases 1% number of cases needing hospital aid.
   * Lockdown: When activated, decreases by 20% number of cases needing hospital admission in next round, however, also decreases in 20% public trust/compliance. 
 
 ### Pandemics Dynamics
   * It was initially choose that every round, a fraction (0-10%) of population will be affected by disease, and Primary care investiments will reduce the amount of cases needing hospital admission (each 10$ will reduce an amount of 2 cases)
-  * Also, it was defined that a proportion of 4:2:2 cases distributed for ER,Infirmary and ICU, and that these units have an lethality of 10%,40% and 80%.
+  * Also, it was defined that a proportion of 4:2:2 cases distributed for ER,Infirmary and ICU, and that these units have a lethality of 10%,40% and 80%, respectively.
   * All cases needing Hospital admission that do not receive it, will count as a preventable/excess death
   * Deaths (preventable and expected) will be reduced from total population. If your population is 0, you lost the GAME!
  
