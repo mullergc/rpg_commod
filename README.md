@@ -13,7 +13,7 @@ This repository contains these folders:
 * Make sure you have [Python](https://www.python.org/downloads/) on your computer. 
 
 ## To Run
-* Open the directory 'cd game_run/', this is where actual version of the game is located
+* Open the directory 'game_run/', this is where actual version of the game is located
 * Run the python command: `python run_v2.py`
 * The text RPG game will start.
 
