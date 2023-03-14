@@ -33,7 +33,7 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, 
     gov = pl.Government()
     media = pl.Media()
     hospital = pl.Hospital()
-    pand = pnd.pandemics_dinamics()
+    pand = pnd.pandemics_dinamics_r2()
     trust = tf.trust_function()
 
 
@@ -69,7 +69,7 @@ def rounds(res_pop,pct_pop,init_resources,box,media_talk,name_media, name_hosp, 
 
 
     # Cases dinamics
-    pand.dynamics_pandemics(pop2, primcare_resources)
+    pand.dynamics_pandemics(pop2, primcare_resources) # colocar os outros inputs aqui soc isolation e public trust
     tot_cases = pand.total_cases
     deaths = pand.total_death
     er_excess = pand.er_cases - hospital.er

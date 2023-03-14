@@ -16,8 +16,10 @@ class start:
         val = int(pop_input)
         if val > 1000:
           print("Invalid input, please choose less than 1000 people")
-        elif val == 0:
-           print("Invalid input, please choose greater than 0 people")
+        #elif val == 0:
+           #print("Invalid input, please choose greater than 0 people")
+        elif val < 10:
+           print("Invalid input, please choose greater than 10 people")
         else:
            print(f'Welcome to country of {name_input},with a pop of {val}')
 
@@ -86,10 +88,39 @@ def round_1():
     # Definição do nível de isolamento social
     # social_isol = nível de isolamento social (0-100)
     print(f"Governor {player_gov}, you have {resources} to distribute for Media, Hospital and Primary Care")
-    media_pct = int(input("Enter percentage of resources for Media: "))
-    hospital_pct = int(input("Enter percentage of resources for Hospital: "))
-    primarycare_pct = int(input("Enter percentage of resources for Primary Care: "))
-    social_isol = input("Define your social distancing level [0-100]: ")
+    # Recursos para mídia
+    while True:
+        media_pct = input("Enter percentage of resources for Media: ")
+        if media_pct.isdigit():
+            break
+        else:
+            print("Invalid value, please choose an integer value.")
+            continue
+    # Recursos para hospital
+    while True:
+        hospital_pct = input("Enter percentage of resources for Hospital: ")
+        if hospital_pct.isdigit():
+            break
+        else:
+            print("Invalid value, please choose an integer value.")
+            continue
+    # Recursos para atenção primária
+    while True:
+        primarycare_pct = input("Enter percentage of resources for Primary Care: ")
+        if primarycare_pct.isdigit():
+            break
+        else:
+            print("Invalid value, please choose an integer value.")
+            continue
+    # Nível de isolamento social
+    while True:
+        social_isol = input("Define your social distancing level [0-100]: ")
+        if social_isol.isdigit():
+            break
+        else:
+            print("Invalid value, please choose an integer value.")
+            continue
+
     # Chamando a função da dinâmica de decisões do governante
     gov.gov_decisions()
     gov.distribute_resources(resources, media_pct, hospital_pct, primarycare_pct)

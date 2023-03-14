@@ -19,5 +19,10 @@ class trust_function:
             lockdown_output = 0
 
         trust_output = trust + media_output + lockdown_output
+        # O número de confiança não pode ser > 100
+        if trust_output > 100:
+            trust_output = 100
+        else:
+            pass
         return trust_output
 
